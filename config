@@ -72,7 +72,7 @@ USERCONF=
 # Lua uses double for numbers. To change this, uncomment and edit the following
 # line, changing USE_XXX to one of USE_DOUBLE, USE_FLOAT, USE_LONG, USE_INT.
 #
-#NUMBER= -DLUA_USER_H='"../etc/luser_number.h"' -DUSE_XXX
+NUMBER= -DLUA_USER_H='"../etc/luser_number.h"' -DUSE_INT
 
 # When compiling Lua with gcc on a Pentium machine, using a fast rounding
 # method for the conversion of doubles to ints can give around 20% speed
@@ -119,11 +119,11 @@ WARN= -Wall
 # debug information. If you only want the shared libraries, you may want to
 # add -fPIC to MYCFLAGS.
 #
-MYCFLAGS= -O2
+MYCFLAGS= -O2 -m32
 #MYCFLAGS= -O3 -fomit-frame-pointer # -fPIC
 
 # Write here any options you may need for your C linker.
-#MYLDFLAGS=
+MYLDFLAGS= -m32
 
 # ------------------------------------------------------------------ librarian
 

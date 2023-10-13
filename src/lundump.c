@@ -229,6 +229,10 @@ static void LoadHeader (LoadState* S)
  lua_Number x,tx=TEST_NUMBER;
  LoadSignature(S);
  version=LoadByte(S);
+ // skip 3 ZBC bytes
+ LoadByte(S);
+ LoadByte(S);
+ LoadByte(S);
  if (version>VERSION)
   luaG_runerror(S->L,"%s too new: "
 	"read version %d.%d; expected at most %d.%d",
