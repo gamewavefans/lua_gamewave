@@ -73,7 +73,7 @@ static void mysaveline (lua_State *L, const char *s) {
   for (p=s; isspace(*p); p++)
     ;
   if (*p!=0) {
-    size_t n=strlen(s)-1;
+    unsigned int n=strlen(s)-1;
     if (s[n]!='\n')
       add_history(s);
     else {

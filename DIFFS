@@ -75,8 +75,8 @@ diff -r lua-5.0/src/lgc.c lua-5.0.2/src/lgc.c
 113c113,114
 < void luaC_separateudata (lua_State *L) {
 ---
-> size_t luaC_separateudata (lua_State *L) {
->   size_t deadmem = 0;
+> unsigned int luaC_separateudata (lua_State *L) {
+>   unsigned int deadmem = 0;
 127a129
 >       deadmem += sizeudata(gcotou(curr)->uv.len);
 136a139
@@ -88,7 +88,7 @@ diff -r lua-5.0/src/lgc.c lua-5.0.2/src/lgc.c
 390c393
 < static void checkSizes (lua_State *L) {
 ---
-> static void checkSizes (lua_State *L, size_t deadmem) {
+> static void checkSizes (lua_State *L, unsigned int deadmem) {
 400c403
 <   G(L)->GCthreshold = 2*G(L)->nblocks;  /* new threshold */
 ---
@@ -96,8 +96,8 @@ diff -r lua-5.0/src/lgc.c lua-5.0.2/src/lgc.c
 454c457,458
 < static void mark (lua_State *L) {
 ---
-> static size_t mark (lua_State *L) {
->   size_t deadmem;
+> static unsigned int mark (lua_State *L) {
+>   unsigned int deadmem;
 467c471
 <   luaC_separateudata(L);  /* separate userdata to be preserved */
 ---
@@ -107,7 +107,7 @@ diff -r lua-5.0/src/lgc.c lua-5.0.2/src/lgc.c
 480c485
 <   mark(L);
 ---
->   size_t deadmem = mark(L);
+>   unsigned int deadmem = mark(L);
 482c487
 <   checkSizes(L);
 ---
@@ -120,7 +120,7 @@ diff -r lua-5.0/src/lgc.h lua-5.0.2/src/lgc.h
 18c18
 < void luaC_separateudata (lua_State *L);
 ---
-> size_t luaC_separateudata (lua_State *L);
+> unsigned int luaC_separateudata (lua_State *L);
 diff -r lua-5.0/src/lib/lbaselib.c lua-5.0.2/src/lib/lbaselib.c
 2c2
 < ** $Id: lbaselib.c,v 1.130 2003/04/03 13:35:34 roberto Exp $

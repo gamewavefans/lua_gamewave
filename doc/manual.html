@@ -1892,7 +1892,7 @@ you can use the following conversion functions:
        int            lua_toboolean   (lua_State *L, int index);
        lua_Number     lua_tonumber    (lua_State *L, int index);
        const char    *lua_tostring    (lua_State *L, int index);
-       size_t         lua_strlen      (lua_State *L, int index);
+       unsigned int         lua_strlen      (lua_State *L, int index);
        lua_CFunction  lua_tocfunction (lua_State *L, int index);
        void          *lua_touserdata  (lua_State *L, int index);
        lua_State     *lua_tothread    (lua_State *L, int index);
@@ -1970,7 +1970,7 @@ push C&nbsp;values onto the stack:
 <PRE>
        void lua_pushboolean       (lua_State *L, int b);
        void lua_pushnumber        (lua_State *L, lua_Number n);
-       void lua_pushlstring       (lua_State *L, const char *s, size_t len);
+       void lua_pushlstring       (lua_State *L, const char *s, unsigned int len);
        void lua_pushstring        (lua_State *L, const char *s);
        void lua_pushnil           (lua_State *L);
        void lua_pushcfunction     (lua_State *L, lua_CFunction f);
@@ -2086,7 +2086,7 @@ and <code>LUA_TLIGHTUSERDATA</code> for light userdata.
 
 <p>You can create a new full userdata with the following function:
 <PRE>
-       void *lua_newuserdata (lua_State *L, size_t size);
+       void *lua_newuserdata (lua_State *L, unsigned int size);
 </PRE>
 
 This function allocates a new block of memory with the given size,
@@ -2131,7 +2131,7 @@ even then it pops the table from the stack.
 <p>You can load a Lua chunk with <code>lua_load</code>:
 <PRE>
        typedef const char * (*lua_Chunkreader)
-                                (lua_State *L, void *data, size_t *size);
+                                (lua_State *L, void *data, unsigned int *size);
 
        int lua_load (lua_State *L, lua_Chunkreader reader, void *data,
                                    const char *chunkname);

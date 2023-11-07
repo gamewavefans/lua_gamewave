@@ -46,7 +46,7 @@ typedef unsigned int lu_hash;
 typedef int ls_hash;
 
 /* an unsigned integer big enough to count the total memory used by Lua; */
-/* it should be at least as large as size_t */
+/* it should be at least as large as unsigned int */
 typedef unsigned long lu_mem;
 
 #define MAX_LUMEM	ULONG_MAX
@@ -59,7 +59,7 @@ typedef long ls_nstr;
 typedef unsigned char lu_byte;
 
 
-#define MAX_SIZET	((size_t)(~(size_t)0)-2)
+#define MAX_SIZET	((unsigned int)(~(unsigned int)0)-2)
 
 
 #define MAX_INT (INT_MAX-2)  /* maximum value of an int (-2 for safety) */
@@ -114,7 +114,7 @@ typedef LUA_UACNUMBER l_uacNumber;
 ** type for virtual-machine instructions
 ** must be an unsigned with (at least) 4 bytes (see details in lopcodes.h)
 */
-typedef unsigned long Instruction;
+typedef unsigned int Instruction;
 
 
 /* maximum depth for calls (unsigned short) */

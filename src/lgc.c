@@ -110,8 +110,8 @@ static void marktmu (GCState *st) {
 
 
 /* move `dead' udata that need finalization to list `tmudata' */
-size_t luaC_separateudata (lua_State *L) {
-  size_t deadmem = 0;
+unsigned int luaC_separateudata (lua_State *L) {
+  unsigned int deadmem = 0;
   GCObject **p = &G(L)->rootudata;
   GCObject *curr;
   GCObject *collected = NULL;  /* to collect udata with gc event */
@@ -390,14 +390,14 @@ static void sweepstrings (lua_State *L, int all) {
 }
 
 
-static void checkSizes (lua_State *L, size_t deadmem) {
+static void checkSizes (lua_State *L, unsigned int deadmem) {
   /* check size of string hash */
   if (G(L)->strt.nuse < cast(ls_nstr, G(L)->strt.size/4) &&
       G(L)->strt.size > MINSTRTABSIZE*2)
     luaS_resize(L, G(L)->strt.size/2);  /* table is too big */
   /* check size of buffer */
   if (luaZ_sizebuffer(&G(L)->buff) > LUA_MINBUFFER*2) {  /* buffer too big? */
-    size_t newsize = luaZ_sizebuffer(&G(L)->buff) / 2;
+    unsigned int newsize = luaZ_sizebuffer(&G(L)->buff) / 2;
     luaZ_resizebuffer(L, &G(L)->buff, newsize);
   }
   G(L)->GCthreshold = 2*G(L)->nblocks - deadmem;  /* new threshold */
@@ -454,8 +454,8 @@ static void markroot (GCState *st, lua_State *L) {
 }
 
 
-static size_t mark (lua_State *L) {
-  size_t deadmem;
+static unsigned int mark (lua_State *L) {
+  unsigned int deadmem;
   GCState st;
   GCObject *wkv;
   st.g = G(L);
@@ -482,7 +482,7 @@ static size_t mark (lua_State *L) {
 
 
 void luaC_collectgarbage (lua_State *L) {
-  size_t deadmem = mark(L);
+  unsigned int deadmem = mark(L);
   luaC_sweep(L, 0);
   checkSizes(L, deadmem);
   luaC_callGCTM(L);

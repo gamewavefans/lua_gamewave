@@ -44,7 +44,7 @@ static void ezread (LoadState* S, void* b, int n)
  if (r!=0) unexpectedEOZ(S);
 }
 
-static void LoadBlock (LoadState* S, void* b, size_t size)
+static void LoadBlock (LoadState* S, void* b, unsigned int size)
 {
  if (S->swap)
  {
@@ -56,7 +56,7 @@ static void LoadBlock (LoadState* S, void* b, size_t size)
   ezread(S,b,size);
 }
 
-static void LoadVector (LoadState* S, void* b, int m, size_t size)
+static void LoadVector (LoadState* S, void* b, int m, unsigned int size)
 {
  if (S->swap)
  {
@@ -81,9 +81,9 @@ static int LoadInt (LoadState* S)
  return x;
 }
 
-static size_t LoadSize (LoadState* S)
+static unsigned int LoadSize (LoadState* S)
 {
- size_t x;
+ unsigned int x;
  LoadBlock(S,&x,sizeof(x));
  return x;
 }
@@ -97,7 +97,7 @@ static lua_Number LoadNumber (LoadState* S)
 
 static TString* LoadString (LoadState* S)
 {
- size_t size=LoadSize(S);
+ unsigned int size=LoadSize(S);
  if (size==0)
   return NULL;
  else
@@ -243,7 +243,7 @@ static void LoadHeader (LoadState* S)
 	S->name,V(version),V(VERSION0));
  S->swap=(luaU_endianness()!=LoadByte(S));	/* need to swap bytes? */
  TESTSIZE(sizeof(int),"int");
- TESTSIZE(sizeof(size_t), "size_t");
+ TESTSIZE(sizeof(unsigned int), "unsigned int");
  TESTSIZE(sizeof(Instruction), "Instruction");
  TESTSIZE(SIZE_OP, "OP");
  TESTSIZE(SIZE_A, "A");

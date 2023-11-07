@@ -27,7 +27,7 @@ static int print(lua_State *L)
  return 0;
 }
 
-static const char *getF(lua_State *L, void *ud, size_t *size)
+static const char *getF(lua_State *L, void *ud, unsigned int *size)
 {
  FILE *f=(FILE *)ud;
  static char buff[512];

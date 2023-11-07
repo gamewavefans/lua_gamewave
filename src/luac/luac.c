@@ -155,7 +155,7 @@ static void strip(lua_State* L, Proto* f)
  for (i=0; i<n; i++) strip(L,f->p[i]);
 }
 
-static int writer(lua_State* L, const void* p, size_t size, void* u)
+static int writer(lua_State* L, const void* p, unsigned int size, void* u)
 {
  UNUSED(L);
  return fwrite(p,size,1,(FILE*)u)==1;

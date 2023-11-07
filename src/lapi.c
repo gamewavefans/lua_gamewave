@@ -324,14 +324,14 @@ LUA_API const char *lua_tostring (lua_State *L, int idx) {
 }
 
 
-LUA_API size_t lua_strlen (lua_State *L, int idx) {
+LUA_API unsigned int lua_strlen (lua_State *L, int idx) {
   StkId o = luaA_indexAcceptable(L, idx);
   if (o == NULL)
     return 0;
   else if (ttisstring(o))
     return tsvalue(o)->tsv.len;
   else {
-    size_t l;
+    unsigned int l;
     lua_lock(L);  /* `luaV_tostring' may create a new string */
     l = (luaV_tostring(L, o) ? tsvalue(o)->tsv.len : 0);
     lua_unlock(L);
@@ -402,7 +402,7 @@ LUA_API void lua_pushnumber (lua_State *L, lua_Number n) {
 }
 
 
-LUA_API void lua_pushlstring (lua_State *L, const char *s, size_t len) {
+LUA_API void lua_pushlstring (lua_State *L, const char *s, unsigned int len) {
   lua_lock(L);
   luaC_checkGC(L);
   setsvalue2s(L->top, luaS_newlstr(L, s, len));
@@ -843,7 +843,7 @@ LUA_API void lua_concat (lua_State *L, int n) {
 }
 
 
-LUA_API void *lua_newuserdata (lua_State *L, size_t size) {
+LUA_API void *lua_newuserdata (lua_State *L, unsigned int size) {
   Udata *u;
   lua_lock(L);
   luaC_checkGC(L);

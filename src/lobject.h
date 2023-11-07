@@ -182,7 +182,7 @@ typedef union TString {
     CommonHeader;
     lu_byte reserved;
     lu_hash hash;
-    size_t len;
+    unsigned int len;
   } tsv;
 } TString;
 
@@ -197,7 +197,7 @@ typedef union Udata {
   struct {
     CommonHeader;
     struct Table *metatable;
-    size_t len;
+    unsigned int len;
   } uv;
 } Udata;
 

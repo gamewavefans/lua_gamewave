@@ -36,7 +36,7 @@ extern unsigned long memdebug_memlimit;
 #define l_realloc(b, os, s)	debug_realloc(b, os, s)
 #define l_free(b, os)		debug_realloc(b, os, 0)
 
-void *debug_realloc (void *block, size_t oldsize, size_t size);
+void *debug_realloc (void *block, unsigned int oldsize, unsigned int size);
 
 
 

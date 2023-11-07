@@ -235,14 +235,14 @@ static int call_orderTM (lua_State *L, const TObject *p1, const TObject *p2,
 
 static int luaV_strcmp (const TString *ls, const TString *rs) {
   const char *l = getstr(ls);
-  size_t ll = ls->tsv.len;
+  unsigned int ll = ls->tsv.len;
   const char *r = getstr(rs);
-  size_t lr = rs->tsv.len;
+  unsigned int lr = rs->tsv.len;
   for (;;) {
     int temp = strcoll(l, r);
     if (temp != 0) return temp;
     else {  /* strings are equal up to a `\0' */
-      size_t len = strlen(l);  /* index of first `\0' in both strings */
+      unsigned int len = strlen(l);  /* index of first `\0' in both strings */
       if (len == lr)  /* r is finished? */
         return (len == ll) ? 0 : 1;
       else if (len == ll)  /* l is finished? */
@@ -333,7 +333,7 @@ void luaV_concat (lua_State *L, int total, int last) {
       buffer = luaZ_openspace(L, &G(L)->buff, tl);
       tl = 0;
       for (i=n; i>0; i--) {  /* concat all strings */
-        size_t l = tsvalue(top-i)->tsv.len;
+        unsigned int l = tsvalue(top-i)->tsv.len;
         memcpy(buffer+tl, svalue(top-i), l);
         tl += l;
       }
