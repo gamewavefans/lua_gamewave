@@ -4,6 +4,9 @@ project(
   license: 'MIT',
   meson_version: '>=0.49.2',
   version: '5.0.2',
+  default_options: [
+    'default_library=static'
+  ]
 )
 # Override the c_std and warning_level of any superproject.
 project_options = ['c_std=c99', 'warning_level=2']
@@ -26,13 +29,14 @@ add_project_arguments('-DLUA_USER_H="../etc/luser_number.h"', language: 'c')
 add_project_arguments('-DUSE_INT', language: 'c')
 
 # Library dependencies.
-lua_lib_deps = [cc.find_library('m', required: false)]
+dep_lua = [cc.find_library('m', required: false)]
 
 inc_inc = include_directories('include')
 
 # Targets.
 inc_src = include_directories('src')
-lua = static_library('lua',
+lua = library(
+  'lua',
   'src/lgc.c',
   'src/lmem.c',
   'src/ltests.c',
@@ -53,14 +57,15 @@ lua = static_library('lua',
   'src/lvm.c',
   'src/lapi.c',
   'src/ltable.c',
-  dependencies: lua_lib_deps,
+  dependencies: dep_lua,
   override_options: project_options,
   implicit_include_directories: false,
   include_directories: [inc_inc, inc_src],
 )
 
 inc_lib = include_directories('src/lib')
-lua_lib = static_library('lualib',
+lua_lib = library(
+  'lualib',
   'src/lib/lstrlib.c',
   'src/lib/lmathlib.c',
   'src/lib/liolib.c',
@@ -69,8 +74,16 @@ lua_lib = static_library('lualib',
   'src/lib/lauxlib.c',
   'src/lib/ldblib.c',
   'src/lib/loadlib.c',
-  dependencies: lua_lib_deps,
+  dependencies: dep_lua,
   override_options: project_options,
   implicit_include_directories: false,
   include_directories: [inc_inc, inc_lib],
 )
+
+
+# Make this library usable as a Meson subproject.
+lua_dep = declare_dependency(
+  include_directories: inc_inc,
+  link_with : [lua, lua_lib],
+  dependencies: [dep_lua],
+  )
