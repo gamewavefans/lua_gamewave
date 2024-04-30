@@ -23,7 +23,7 @@
 
 /* function to convert a string to a lua_Number */
 #ifndef lua_str2number
-#define lua_str2number(s,p)     strtod((s), (p))
+#define lua_str2number(s,p)     ((int) strtol((s), (p), 10))
 #endif
 
 

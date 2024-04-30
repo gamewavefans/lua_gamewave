@@ -143,6 +143,9 @@ static void DumpHeader(DumpState* D)
 {
  DumpLiteral(LUA_SIGNATURE,D);
  DumpByte(VERSION,D);
+ DumpByte(1,D);
+ DumpByte(0,D);
+ DumpByte(1,D);
  DumpByte(luaU_endianness(),D);
  DumpByte(sizeof(int),D);
  DumpByte(sizeof(unsigned int),D);

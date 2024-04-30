@@ -84,7 +84,7 @@ typedef int (*lua_Chunkwriter) (lua_State *L, const void* p,
 
 /* type of numbers in Lua */
 #ifndef LUA_NUMBER
-typedef double lua_Number;
+typedef int lua_Number;
 #else
 typedef LUA_NUMBER lua_Number;
 #endif
@@ -292,11 +292,11 @@ LUA_API int lua_pushupvalues (lua_State *L);
 
 /* formats for Lua numbers */
 #ifndef LUA_NUMBER_SCAN
-#define LUA_NUMBER_SCAN		"%lf"
+#define LUA_NUMBER_SCAN		"%d"
 #endif
 
 #ifndef LUA_NUMBER_FMT
-#define LUA_NUMBER_FMT		"%.14g"
+#define LUA_NUMBER_FMT		"%d"
 #endif
 
 /* }====================================================================== */

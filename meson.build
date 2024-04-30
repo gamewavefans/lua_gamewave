@@ -25,8 +25,9 @@ if is_posix
   add_project_arguments('-DLUA_USE_POSIX', language: 'c')
 endif
 
-add_project_arguments('-DLUA_USER_H="../etc/luser_number.h"', language: 'c')
+# add_project_arguments('-DLUA_USER_H="../etc/luser_number.h"', language: 'c')
 add_project_arguments('-DUSE_INT', language: 'c')
+add_project_arguments('-DLUA_OPNAMES', language: 'c')
 
 # Library dependencies.
 dep_lua = [cc.find_library('m', required: false)]
@@ -78,7 +79,18 @@ lua_lib = library(
   override_options: project_options,
   implicit_include_directories: false,
   include_directories: [inc_inc, inc_lib],
+  cpp_args : '-DLUA_USER_H="../../etc/luser_number.h"',
 )
+
+executable('luac',
+    'src/luac/luac.c',
+    'src/luac/print.c',
+    link_with: [lua, lua_lib],
+    override_options: project_options,
+    implicit_include_directories: false,
+    include_directories: [inc_inc, inc_src],
+  )
+
 
 
 # Make this library usable as a Meson subproject.
