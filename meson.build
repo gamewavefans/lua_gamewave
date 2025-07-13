@@ -94,7 +94,7 @@ executable('luac',
 
 
 # Make this library usable as a Meson subproject.
-lua_dep = declare_dependency(
+lua_gamewave = declare_dependency(
   include_directories: inc_inc,
   link_with : [lua, lua_lib],
   dependencies: [dep_lua],
