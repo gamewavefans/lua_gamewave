@@ -1,6 +1,6 @@
 # adapted from https://github.com/mesonbuild/lua/tree/5.3.6
 project(
-  'lua-5.0', 'c',
+  'lua_gamewave', 'c',
   license: 'MIT',
   meson_version: '>=0.49.2',
   version: '5.0.2',
